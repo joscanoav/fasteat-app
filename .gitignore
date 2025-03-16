@@ -1,0 +1,17 @@
+# Node.js / Angular 19 archivos innecesarios
+node_modules/
+dist/
+tmp/
+out-tsc/
+coverage/
+# Archivos de configuración locales
+.angular/
+.vscode/
+*.log
+*.bak
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+# Configuración de entorno
+*.env
