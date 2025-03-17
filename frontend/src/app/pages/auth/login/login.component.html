@@ -1,0 +1,19 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="p-card p-4 shadow-lg w-96">
+      <h2 class="text-center text-lg font-bold mb-4">Iniciar Sesión</h2>
+      <div class="mb-3">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-user"></i>
+          <input pInputText type="email" class="w-full" placeholder="Email" [(ngModel)]="email" />
+        </span>
+      </div>
+      <div class="mb-3">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-lock"></i>
+          <input pInputText type="password" class="w-full" placeholder="Contraseña" [(ngModel)]="password" />
+        </span>
+      </div>
+      <button pButton label="Ingresar" class="w-full" (click)="login()"></button>
+    </div>
+  </div>
+  
