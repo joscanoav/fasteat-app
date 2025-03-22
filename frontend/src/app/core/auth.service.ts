@@ -1,34 +1,47 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
-  private userRole: string | null = null;
+  private users: { name: string; email: string; password: string; role: string }[] = [];
 
   constructor(private router: Router) {}
 
-  login(email: string, password: string): boolean {
-    if (email === 'admin@fast-eat.com' && password === 'admin123') {
-      this.userRole = 'admin';
+  login(email: string, password: string): void {
+    const user = this.users.find((u) => u.email === email && u.password === password);
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      this.router.navigate(['/menu']);
     } else {
-      this.userRole = 'user';
+      alert('Credenciales incorrectas');
     }
-    localStorage.setItem('role', this.userRole);
-    this.router.navigate([this.userRole === 'admin' ? '/admin/dashboard' : '/menu']);
-    return true;
   }
 
-  logout() {
-    localStorage.removeItem('role');
+  register(name: string, email: string, password: string): void {
+    if (this.users.some((u) => u.email === email)) {
+      alert('El email ya está registrado.');
+      return;
+    }
+    this.users.push({ name, email, password, role: 'user' });
+    alert('Registro exitoso. Ahora puedes iniciar sesión.');
     this.router.navigate(['/login']);
   }
 
-  getRole(): string | null {
-    return localStorage.getItem('role');
+  isAuthenticated(): boolean {
+    return localStorage.getItem('user') !== null;
   }
 
-  isAuthenticated(): boolean {
-    return this.getRole() !== null;
+  getRole(): string {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user?.role || 'guest';
+  }
+
+  logout(): void {
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 }
+
 

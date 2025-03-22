@@ -1,1 +1,36 @@
-<p>register works!</p>
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="p-card p-4 shadow-lg w-96">
+      <h2 class="text-center text-lg font-bold mb-4">Registro</h2>
+  
+      <div class="mb-3">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-user"></i>
+          <input pInputText type="text" class="w-full" placeholder="Nombre" [(ngModel)]="name" />
+        </span>
+      </div>
+  
+      <div class="mb-3">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-envelope"></i>
+          <input pInputText type="email" class="w-full" placeholder="Email" [(ngModel)]="email" />
+        </span>
+      </div>
+  
+      <div class="mb-3">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-lock"></i>
+          <input pInputText type="password" class="w-full" placeholder="Contraseña" [(ngModel)]="password" />
+        </span>
+      </div>
+  
+      <div class="mb-3">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-lock"></i>
+          <input pInputText type="password" class="w-full" placeholder="Confirmar Contraseña" [(ngModel)]="confirmPassword" />
+        </span>
+      </div>
+  
+      <button pButton label="Registrarse" class="w-full" (click)="register()"></button>
+    </div>
+  </div>
+  
