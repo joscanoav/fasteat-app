@@ -1,1 +1,43 @@
-<p>products works!</p>
+<div class="card">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template pTemplate="caption">
+            <div class="flex items-center justify-between">
+                <span class="text-xl font-bold">Productos</span>
+                <p-button icon="pi pi-refresh" styleClass="p-button-rounded p-button-raised"></p-button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nombre</th>
+                <th style="width: 100px;">Imagen</th> <!-- Ancho fijo para la columna de imágenes -->
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th>Calificación</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>
+                    <img [src]="product.image" 
+                         [alt]="product.name" 
+                         width="50" 
+                         height="50" 
+                         style="object-fit: cover; border-radius: 8px;" />
+                </td>
+                <td>{{ product.price | currency: 'USD' }}</td>
+                <td>{{ product.category }}</td>
+                <td>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                </td>
+                <td>
+                    <p-rating [(ngModel)]="product.rating" [readonly]="true"></p-rating>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            En total hay {{ products ? products.length : 0 }} productos.
+        </ng-template>
+    </p-table>
+</div>
