@@ -9,6 +9,7 @@ import { ProductsComponent } from './pages/admin/products/products.component';
 import { ClientsComponent } from './pages/admin/clients/clients.component';
 import { AdminOrdersComponent } from './pages/admin/orders/orders.component'; // Nuevo componente para órdenes de admin
 import { AuthGuard } from './core/auth.guard';
+import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,6 +19,8 @@ export const routes: Routes = [
   { path: 'orders', component: ClientOrdersComponent }, // Ruta para órdenes del cliente
   {
     path: 'admin',
+    component: AdminLayoutComponent,  // Usa el layout para las páginas del admin
+    canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
       { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },

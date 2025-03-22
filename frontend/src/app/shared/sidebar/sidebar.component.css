@@ -1,0 +1,32 @@
+/* sidebar.component.css */
+aside {
+    width: 250px; /* Ajusta el tamaño según lo necesites */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #2d2d2d;
+    color: white;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 60px; /* Asegúrate de que no se solape con la cabecera */
+  }
+  
+  li {
+    margin: 10px 0;
+  }
+  
+  a {
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    color: white;
+  }
+  
+  a:hover {
+    background-color: #555;
+  }
+  

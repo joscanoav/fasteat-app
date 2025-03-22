@@ -1,18 +1,27 @@
 <div class="p-4">
     <h2 class="text-xl font-bold">Dashboard</h2>
-    <div class="grid grid-cols-3 gap-4 mt-4">
-      <div class="p-card p-4 shadow-lg">
-        <h3>Total Pedidos</h3>
-        <p class="text-2xl font-bold">{{ stats.totalOrders }}</p>
-      </div>
-      <div class="p-card p-4 shadow-lg">
-        <h3>Ingresos</h3>
-        <p class="text-2xl font-bold">${{ stats.revenue }}</p>
-      </div>
-      <div class="p-card p-4 shadow-lg">
-        <h3>Clientes</h3>
-        <p class="text-2xl font-bold">{{ stats.totalClients }}</p>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <!-- Tarjeta para Total de Pedidos -->
+        <p-card header="Total Pedidos">
+            <p class="text-2xl font-bold">{{ stats.totalOrders }}</p>
+        </p-card>
+
+        <!-- Tarjeta para Ingresos -->
+        <p-card header="Ingresos">
+            <p class="text-2xl font-bold">${{ stats.revenue }}</p>
+        </p-card>
+
+        <!-- Tarjeta para Total de Clientes -->
+        <p-card header="Clientes">
+            <p class="text-2xl font-bold">{{ stats.totalClients }}</p>
+        </p-card>
     </div>
-  </div>
-  
+
+    <!-- Gráfico de barras -->
+    <div class="mt-8">
+        <p-card header="Estadísticas">
+            <p-chart type="bar" [data]="chartData" [options]="chartOptions"></p-chart>
+        </p-card>
+    </div>
+</div>
+<p-toast /> <!-- Componente para mostrar notificaciones -->
