@@ -5,7 +5,20 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private users: { name: string; email: string; password: string; role: string }[] = [];
+  private users: { name: string; email: string; password: string; role: string }[] = [
+    {
+      name: 'Admin User',
+      email: 'admin@admin.com',
+      password: 'admin123', // Contraseña de ejemplo
+      role: 'admin',
+    },
+    {
+      name: 'Regular User',
+      email: 'user@user.com',
+      password: 'user123', // Contraseña de ejemplo
+      role: 'user',
+    },
+  ];
 
   constructor(private router: Router) {}
 
@@ -13,7 +26,13 @@ export class AuthService {
     const user = this.users.find((u) => u.email === email && u.password === password);
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
-      this.router.navigate(['/menu']);
+
+      // Redirigir a dashboard si es un admin, de lo contrario al menú
+      if (user.role === 'admin') {
+        this.router.navigate(['/admin/dashboard']);
+      } else {
+        this.router.navigate(['/menu']);
+      }
     } else {
       alert('Credenciales incorrectas');
     }
@@ -43,5 +62,6 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 }
+
 
 

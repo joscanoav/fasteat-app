@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+<div class="p-4">
+    <h2 class="text-xl font-bold">Dashboard</h2>
+    <div class="grid grid-cols-3 gap-4 mt-4">
+      <div class="p-card p-4 shadow-lg">
+        <h3>Total Pedidos</h3>
+        <p class="text-2xl font-bold">{{ stats.totalOrders }}</p>
+      </div>
+      <div class="p-card p-4 shadow-lg">
+        <h3>Ingresos</h3>
+        <p class="text-2xl font-bold">${{ stats.revenue }}</p>
+      </div>
+      <div class="p-card p-4 shadow-lg">
+        <h3>Clientes</h3>
+        <p class="text-2xl font-bold">{{ stats.totalClients }}</p>
+      </div>
+    </div>
+  </div>
+  

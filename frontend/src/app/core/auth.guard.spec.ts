@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
@@ -11,6 +11,7 @@ describe('AuthGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       providers: [
         AuthGuard,
         { provide: AuthService, useValue: { isAuthenticated: () => true, getRole: () => 'admin' } },
@@ -31,7 +32,7 @@ describe('AuthGuard', () => {
     spyOn(authService, 'isAuthenticated').and.returnValue(true);
     spyOn(authService, 'getRole').and.returnValue('admin');
 
-    const result = guard.canActivate();
+    const result = guard.canActivate(null as any, null as any);  // Pasando valores null para estos parámetros
 
     expect(result).toBe(true);
     expect(router.navigate).not.toHaveBeenCalled();
@@ -40,7 +41,7 @@ describe('AuthGuard', () => {
   it('should redirect to menu if user is not authenticated', () => {
     spyOn(authService, 'isAuthenticated').and.returnValue(false);
 
-    const result = guard.canActivate();
+    const result = guard.canActivate(null as any, null as any);  // Pasando valores null para estos parámetros
 
     expect(result).toBe(false);
     expect(router.navigate).toHaveBeenCalledWith(['/menu']);
@@ -50,7 +51,7 @@ describe('AuthGuard', () => {
     spyOn(authService, 'isAuthenticated').and.returnValue(true);
     spyOn(authService, 'getRole').and.returnValue('user');
 
-    const result = guard.canActivate();
+    const result = guard.canActivate(null as any, null as any);  // Pasando valores null para estos parámetros
 
     expect(result).toBe(false);
     expect(router.navigate).toHaveBeenCalledWith(['/menu']);
