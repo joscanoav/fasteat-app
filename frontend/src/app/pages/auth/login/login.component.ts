@@ -24,6 +24,12 @@ export class LoginComponent {
       alert('Error en el inicio de sesión. Verifica tus credenciales.');
     }
   }
+
+  register() {
+    console.log('Redirigir a página de registro...');
+    // Aquí puedes redirigir a la página de registro, por ejemplo:
+    // this.router.navigate(['/register']);
+}
 }
 
 

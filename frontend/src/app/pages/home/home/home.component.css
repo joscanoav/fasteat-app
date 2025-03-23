@@ -1,38 +1,94 @@
-/* home.component.css */
+/* Asegurar que no haya desbordamiento debajo del footer */
 .home-container {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Asegura que el contenedor ocupe al menos el 100% de la altura de la ventana */
+    justify-content: space-between;
+    overflow: hidden;
 }
 
-.card {
-    margin: 1rem auto; /* Centra las tarjetas y añade un margen */
-    max-width: 1200px; /* Limita el ancho máximo del contenido */
-    width: 100%; /* Ocupa el 100% del ancho disponible */
+/* Barra naranja superior con texto */
+.top-line {
+    width: 100%;
+    height: 50px;
+    background-color: var(--primary-color, #f97316);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
 }
 
-.p-megamenu {
-    border: none;
-    border-radius: 0;
+/* Mega menú */
+.mega-menu {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 3rem;
 }
 
-.p-megamenu .p-menuitem-link {
-    color: #333;
+/* Logo más grande */
+.logo-img {
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
-.p-megamenu .p-menuitem-link:hover {
-    background-color: #f8f9fa;
+/* Ítems del menú con hover subrayado en naranja */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: #000;
+    font-weight: bold;
+    border-radius: 2rem;
+    transition: all 0.3s;
+    text-decoration: none;
 }
 
-button.p-button.p-button-success {
-    margin-left: 1rem;
+.menu-item:hover {
+    text-decoration: underline;
+    text-decoration-color: #f97316;
+    text-decoration-thickness: 3px;
 }
 
-.p-carousel {
-    margin-top: 2rem;
+/* Contenedor de la parte derecha */
+.menu-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-/* Estilos para el footer (si no están en el componente <app-footer>) */
-app-footer {
-    margin-top: auto; /* Empuja el footer al final de la página */
+/* Botón "Comenzar pedido" con ícono de carrito */
+.order-button {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
+
+/* Eliminar la sombra gris de hover */
+.p-button:hover {
+    box-shadow: none !important;
+}
+
+/* Alinear los íconos con los textos */
+.p-button i {
+    margin-right: 5px;
+}
+
