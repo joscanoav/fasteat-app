@@ -1,17 +1,32 @@
-<nav class="flex justify-between p-4 bg-gray-800 text-white">
-  <div>
-    <a routerLink="/menu" class="mr-4">Menú</a>
-    <a routerLink="/cart" *ngIf="authService.isAuthenticated()">Carrito</a>
-    <a routerLink="/orders" *ngIf="authService.isAuthenticated()">Mis Pedidos</a>
-  </div>
+<div class="card">
+  <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
+      <!-- Logo o nombre de la aplicación -->
+      <ng-template #start>
+          <a routerLink="/client/menu" class="logo">FastEat</a>
+      </ng-template>
 
-  <div *ngIf="authService.isAuthenticated(); else loggedOut">
-    <span>Bienvenido, {{ authService.getRole() === 'admin' ? 'Admin' : 'Cliente' }} </span>
-    <button (click)="logout()" class="ml-4 bg-red-500 px-3 py-1">Cerrar sesión</button>
-  </div>
+      <!-- Ítems del menú -->
+      <ng-template #item let-item>
+          <a *ngIf="item.routerLink" [routerLink]="item.routerLink" class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
+              <i [ngClass]="item.icon"></i>
+              <span class="ml-2">{{ item.label }}</span>
+          </a>
+      </ng-template>
 
-  <ng-template #loggedOut>
-    <a routerLink="/login" class="mr-4">Iniciar Sesión</a>
-    <a routerLink="/register">Registrarse</a>
-  </ng-template>
-</nav>c
+      <!-- Avatar y botón de logout -->
+      <ng-template #end>
+          <!-- Avatar del usuario -->
+          <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+
+          <!-- Botón de Logout -->
+          <button
+              pButton
+              type="button"
+              icon="pi pi-sign-out"
+              label="Cerrar sesión"
+              class="p-button-text p-button-danger"
+              (click)="logout()"
+          ></button>
+      </ng-template>
+  </p-megamenu>
+</div>

@@ -11,7 +11,7 @@ import { AdminOrdersComponent } from './pages/admin/orders/orders.component';
 import { AuthGuard } from './core/auth.guard';
 import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
 import { HomeComponent } from './pages/home/home/home.component';
-import { ClientLayoutComponent } from './pages/client/client-layout/client-layout.component'; // Importa el ClientLayoutComponent
+import { ClientLayoutComponent } from './pages/client/client-layout/client-layout.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Ruta por defecto (portada)

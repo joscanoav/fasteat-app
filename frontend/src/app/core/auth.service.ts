@@ -54,14 +54,19 @@ export class AuthService {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
       this.authStatus.next(true);
-
+  
       // Redirige según el rol
-      this.router.navigate([user.role === 'admin' ? '/admin/dashboard' : '/menu']);
+      if (user.role === 'admin') {
+        this.router.navigate(['/admin/dashboard']); // Redirige al panel de admin
+      } else {
+        this.router.navigate(['/client/menu']); // Redirige al menú del cliente
+      }
       return true;
     } else {
       alert('Credenciales incorrectas');
       return false;
     }
+  
   }
 
   /** Simula un registro de usuario */

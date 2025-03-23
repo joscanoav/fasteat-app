@@ -1,0 +1,38 @@
+/* home.component.css */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el contenedor ocupe al menos el 100% de la altura de la ventana */
+}
+
+.card {
+    margin: 1rem auto; /* Centra las tarjetas y añade un margen */
+    max-width: 1200px; /* Limita el ancho máximo del contenido */
+    width: 100%; /* Ocupa el 100% del ancho disponible */
+}
+
+.p-megamenu {
+    border: none;
+    border-radius: 0;
+}
+
+.p-megamenu .p-menuitem-link {
+    color: #333;
+}
+
+.p-megamenu .p-menuitem-link:hover {
+    background-color: #f8f9fa;
+}
+
+button.p-button.p-button-success {
+    margin-left: 1rem;
+}
+
+.p-carousel {
+    margin-top: 2rem;
+}
+
+/* Estilos para el footer (si no están en el componente <app-footer>) */
+app-footer {
+    margin-top: auto; /* Empuja el footer al final de la página */
+}
