@@ -1,67 +1,90 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private users: { name: string; email: string; password: string; role: string }[] = [
-    {
-      name: 'Admin User',
-      email: 'admin@admin.com',
-      password: 'admin123', // Contraseña de ejemplo
-      role: 'admin',
-    },
-    {
-      name: 'Regular User',
-      email: 'user@user.com',
-      password: 'user123', // Contraseña de ejemplo
-      role: 'user',
-    },
-  ];
+  private users: { name: string; email: string; password: string; role: string }[] = [];
 
-  constructor(private router: Router) {}
+  private authStatus = new BehaviorSubject<boolean>(this.isAuthenticated());
 
-  login(email: string, password: string): void {
-    const user = this.users.find((u) => u.email === email && u.password === password);
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-
-      // Redirigir a dashboard si es un admin, de lo contrario al menú
-      if (user.role === 'admin') {
-        this.router.navigate(['/admin/dashboard']);
-      } else {
-        this.router.navigate(['/menu']);
-      }
-    } else {
-      alert('Credenciales incorrectas');
-    }
+  constructor(private router: Router) {
+    this.loadUsers();
   }
 
-  register(name: string, email: string, password: string): void {
-    if (this.users.some((u) => u.email === email)) {
-      alert('El email ya está registrado.');
-      return;
-    }
-    this.users.push({ name, email, password, role: 'user' });
-    alert('Registro exitoso. Ahora puedes iniciar sesión.');
-    this.router.navigate(['/login']);
+  /** Cargar usuarios desde localStorage o usar valores por defecto */
+  private loadUsers(): void {
+    const storedUsers = localStorage.getItem('users');
+    this.users = storedUsers ? JSON.parse(storedUsers) : [
+      { name: 'Admin User', email: 'admin@admin.com', password: 'admin123', role: 'admin' },
+      { name: 'Regular User', email: 'user@user.com', password: 'user123', role: 'user' }
+    ];
   }
 
+  /** Guardar usuarios en localStorage */
+  private saveUsers(): void {
+    localStorage.setItem('users', JSON.stringify(this.users));
+  }
+
+  /** Verifica si hay un usuario autenticado */
   isAuthenticated(): boolean {
     return localStorage.getItem('user') !== null;
   }
 
-  getRole(): string {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user?.role || 'guest';
+  /** Retorna el estado de autenticación como observable */
+  getAuthStatus(): Observable<boolean> {
+    return this.authStatus.asObservable();
   }
 
+  /** Obtiene el rol del usuario */
+  getRole(): string {
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      return user?.role || 'guest';
+    } catch {
+      return 'guest';
+    }
+  }
+
+  /** Simula un login validando contra la lista de usuarios */
+  login(email: string, password: string): boolean {
+    const user = this.users.find(u => u.email === email && u.password === password);
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      this.authStatus.next(true);
+
+      // Redirige según el rol
+      this.router.navigate([user.role === 'admin' ? '/admin/dashboard' : '/menu']);
+      return true;
+    } else {
+      alert('Credenciales incorrectas');
+      return false;
+    }
+  }
+
+  /** Simula un registro de usuario */
+  register(name: string, email: string, password: string): boolean {
+    if (this.users.some(u => u.email === email)) {
+      alert('El email ya está registrado.');
+      return false;
+    }
+    const newUser = { name, email, password, role: 'user' };
+    this.users.push(newUser);
+    this.saveUsers(); // Guardar en localStorage
+    alert('Registro exitoso. Ahora puedes iniciar sesión.');
+    return true;
+  }
+
+  /** Cierra sesión */
   logout(): void {
     localStorage.removeItem('user');
+    this.authStatus.next(false);
     this.router.navigate(['/login']);
   }
 }
+
 
 
 

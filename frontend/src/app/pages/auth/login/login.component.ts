@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../core/auth.service';
 import { FormsModule } from '@angular/forms';  
 import { CommonModule } from '@angular/common';
-
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -11,7 +10,7 @@ import { CardModule } from 'primeng/card';
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule,InputTextModule,ButtonModule,CardModule] 
+  imports: [CommonModule, FormsModule, InputTextModule, ButtonModule, CardModule] 
 })
 export class LoginComponent {
   email = '';
@@ -20,7 +19,11 @@ export class LoginComponent {
   constructor(private authService: AuthService) {}
 
   login() {
-    this.authService.login(this.email, this.password);
+    const success = this.authService.login(this.email, this.password);
+    if (!success) {
+      alert('Error en el inicio de sesión. Verifica tus credenciales.');
+    }
   }
 }
+
 

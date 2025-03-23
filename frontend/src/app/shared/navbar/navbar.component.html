@@ -1,4 +1,17 @@
-<nav class="bg-blue-500 p-4 text-white">
-    <h1 class="text-lg font-bold">FastEat Admin</h1>
-  </nav>
-  
+<nav class="flex justify-between p-4 bg-gray-800 text-white">
+  <div>
+    <a routerLink="/menu" class="mr-4">Menú</a>
+    <a routerLink="/cart" *ngIf="authService.isAuthenticated()">Carrito</a>
+    <a routerLink="/orders" *ngIf="authService.isAuthenticated()">Mis Pedidos</a>
+  </div>
+
+  <div *ngIf="authService.isAuthenticated(); else loggedOut">
+    <span>Bienvenido, {{ authService.getRole() === 'admin' ? 'Admin' : 'Cliente' }} </span>
+    <button (click)="logout()" class="ml-4 bg-red-500 px-3 py-1">Cerrar sesión</button>
+  </div>
+
+  <ng-template #loggedOut>
+    <a routerLink="/login" class="mr-4">Iniciar Sesión</a>
+    <a routerLink="/register">Registrarse</a>
+  </ng-template>
+</nav>

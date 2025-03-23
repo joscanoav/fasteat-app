@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../core/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -26,6 +25,10 @@ export class RegisterComponent {
       alert('Las contraseñas no coinciden.');
       return;
     }
-    this.authService.register(this.name, this.email, this.password);
+    const success = this.authService.register(this.name, this.email, this.password);
+    if (!success) {
+      alert('No se pudo completar el registro.');
+    }
   }
 }
+

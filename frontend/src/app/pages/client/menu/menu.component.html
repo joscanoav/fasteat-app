@@ -1,1 +1,22 @@
-<p>menu works!</p>
+<div class="p-4">
+    <p-card header="Menú">
+        <p-table [value]="products">
+            <ng-template #header>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-product>
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price | currency: 'USD' }}</td>
+                    <td>
+                        <p-button label="Añadir al carrito" (click)="addToCart(product)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>
