@@ -11,16 +11,24 @@ import { AdminOrdersComponent } from './pages/admin/orders/orders.component';
 import { AuthGuard } from './core/auth.guard';
 import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
 import { HomeComponent } from './pages/home/home/home.component';
+import { ClientLayoutComponent } from './pages/client/client-layout/client-layout.component'; // Importa el ClientLayoutComponent
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Ruta por defecto (portada)
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] }, // Protege la ruta del menú
-  
-  // Rutas protegidas para clientes
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
-  { path: 'orders', component: ClientOrdersComponent, canActivate: [AuthGuard] },
+
+  // Rutas protegidas para clientes (con layout)
+  {
+    path: 'client',
+    component: ClientLayoutComponent, // Usa el ClientLayoutComponent
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'menu', component: MenuComponent },
+      { path: 'cart', component: CartComponent },
+      { path: 'orders', component: ClientOrdersComponent },
+    ],
+  },
 
   // Rutas protegidas para admin (con layout)
   {
@@ -28,13 +36,12 @@ export const routes: Routes = [
     component: AdminLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-      { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
-      { path: 'orders', component: AdminOrdersComponent, canActivate: [AuthGuard] },
-      { path: 'clients', component: ClientsComponent, canActivate: [AuthGuard] }
-    ]
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'orders', component: AdminOrdersComponent },
+      { path: 'clients', component: ClientsComponent },
+    ],
   },
 
   { path: '**', redirectTo: '' } // Redirige a la portada por defecto
 ];
-
