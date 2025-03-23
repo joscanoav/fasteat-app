@@ -10,11 +10,13 @@ import { ClientsComponent } from './pages/admin/clients/clients.component';
 import { AdminOrdersComponent } from './pages/admin/orders/orders.component';
 import { AuthGuard } from './core/auth.guard';
 import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
+import { HomeComponent } from './pages/home/home/home.component';
 
 export const routes: Routes = [
+  { path: '', component: HomeComponent }, // Ruta por defecto (portada)
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] }, // Protege la ruta del menú
   
   // Rutas protegidas para clientes
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
@@ -33,6 +35,6 @@ export const routes: Routes = [
     ]
   },
 
-  { path: '**', redirectTo: 'menu' }
+  { path: '**', redirectTo: '' } // Redirige a la portada por defecto
 ];
 
