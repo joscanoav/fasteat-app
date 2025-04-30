@@ -3,7 +3,10 @@ package com.fasteat.fasteat_api.model;
 import jakarta.persistence.*;
 import com.fasteat.fasteat_api.converter.MenuConverter;
 import java.util.Map;
-
+/*
+ * Clase que define la entidad Restaurante
+ * Define los atributos de un restaurante
+ */
 @Entity
 public class Restaurante {
 

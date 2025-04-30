@@ -8,7 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+/*
+ * Clase que permite convertir un mapa a un JSON y viceversa
+ */
 @Converter
 public class MenuConverter implements AttributeConverter<Map<String, Double>, String> {
 

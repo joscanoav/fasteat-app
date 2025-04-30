@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+ * Clase que define el controlador de restaurantes
+ * Define los metodos para obtener, crear, actualizar y eliminar restaurantes   
+ */
+
 @RestController
 @RequestMapping("/restaurantes")
 public class RestauranteController {

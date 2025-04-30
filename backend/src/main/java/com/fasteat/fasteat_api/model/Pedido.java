@@ -1,7 +1,10 @@
 package com.fasteat.fasteat_api.model;
 
 import jakarta.persistence.*;
-
+/*
+ * Clase que define la entidad Pedido
+ * Define los atributos de un pedido
+ */
 @Entity
 public class Pedido {
 
